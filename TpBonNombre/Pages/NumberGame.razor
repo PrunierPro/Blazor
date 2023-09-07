@@ -1,0 +1,71 @@
+﻿@page "/numgame"
+
+@{
+    if (!_win && _numLives > 0)
+    {
+        <h3>Magic Number</h3>
+        <p name="debug">Number is @_number</p>
+        <label for="number">Guess the magic number between 0 and 20</label>
+        <input type="number" @bind="_currentGuess" @bind:event="oninput" @onchange="GuessControl" id="number" name="number" />
+        <button class="btn btn-primary" @onclick="Test">Test</button>
+        <br />
+        <p class="text-danger" style="font-size: 2em">
+            @{
+                for (int i = 0; i < _numLives; i++)
+                {
+                    <span>&heartsuit;</span>
+                }
+            }
+        </p>
+    }
+    else if (_numLives <= 0)
+    {
+        <h3>You lost! :(</h3>
+        <button class="btn btn-dark" @onclick="Init">Retry?</button>
+    }
+    else
+    {
+        <h3>You win! :D</h3>
+        <button class="btn btn-success" @onclick="Init">Retry?</button>
+    }
+}
+
+
+@code {
+    private Random _rand = new Random();
+    private int _number;
+    private int _numLives;
+    private int _currentGuess;
+    private bool _win;
+
+    protected override void OnInitialized()
+    {
+        Init();
+    }
+
+    public void Init()
+    {
+        _number = _rand.Next(0, 21);
+        _numLives = 5;
+        _currentGuess = 0;
+        _win = false;
+    }
+
+    public void GuessControl()
+    {
+        if (_currentGuess < 0) _currentGuess = 0;
+        else if (_currentGuess > 20) _currentGuess = 20;
+    }
+
+    public void Test()
+    {
+        if (_currentGuess == _number)
+        {
+            _win = true;
+        }
+        else
+        {
+            _numLives--;
+        }
+    }
+}
