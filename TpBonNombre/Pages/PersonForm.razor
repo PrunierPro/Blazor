@@ -1,5 +1,118 @@
-﻿<h3>PersonForm</h3>
+﻿@page "/personform"
+
+<h3>Person Form</h3>
+
+<div class="d-flex flex-row flex-wrap justify-content-between">
+    <EditForm Model="Model" OnValidSubmit="ShowResult">
+        <DataAnnotationsValidator />
+
+        <div class="row mb-3">
+            <div class="form-group col">
+                <label for="name" class="form-label">Name: </label>
+                <InputText class="form-control" id="name" @bind-Value="Model.Name" />
+                <small>
+                    <ValidationMessage For="() => Model.Name" />
+                </small>
+            </div>
+
+            <div class="form-group col">
+                <label for="email" class="form-label">Email: </label>
+                <InputText class="form-control" id="email" @bind-Value="Model.Email" />
+                <small>
+                    <ValidationMessage For="() => Model.Email" />
+                </small>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="form-group col">
+                <label for="address" class="form-label">Address: </label>
+                <InputText class="form-control" id="address" @bind-Value="Model.Address" />
+                <small>
+                    <ValidationMessage For="() => Model.Address" />
+                </small>
+            </div>
+
+            <div class="form-group col">
+                <label for="postalcode" class="form-label">Postal Code: </label>
+                <InputText class="form-control" id="postalcode" @bind-Value="Model.PostalCode" />
+                <small>
+                    <ValidationMessage For="() => Model.PostalCode" />
+                </small>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="form-group col">
+                <label for="age" class="form-label">Age: </label>
+                <InputNumber class="form-control" id="age" @bind-Value="Model.Age" />
+                <small>
+                    <ValidationMessage For="() => Model.Age" />
+                </small>
+            </div>
+
+            <div class="form-group col">
+                <label for="dob" class="form-label">Date of Birth: </label>
+                <InputDate class="form-control" id="dob" @bind-Value="Model.DoB" />
+                <small>
+                    <ValidationMessage For="() => Model.DoB" />
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <InputCheckbox class="form-checkbox" id="married" @bind-Value="Model.Married" />
+            <label for="married" class="form-label"> Married?</label>
+            <small>
+                <ValidationMessage For="() => Model.Married" />
+            </small>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="favcolor" class="form-label">Favorite color: </label>
+            <InputSelect class="form-select" id="favcolor" @bind-Value="Model.FavColor">
+                @foreach (Color c in Enum.GetValues(typeof(Color)))
+                {
+                    <option value="@c">@c</option>
+                }
+            </InputSelect>
+            <small>
+                <ValidationMessage For="() => Model.FavColor" />
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div>
+            <ValidationSummary />
+        </div>
+    </EditForm>
+    @if (showResult)
+    {
+        <div class="card border-primary" style="margin-right: 10%; height: fit-content">
+            <div class="card-header bg-primary">
+                Result
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Name: @Submitted.Name</li>
+                <li class="list-group-item">Email: @Submitted.Email</li>
+                <li class="list-group-item">Age: @Submitted.Age</li>
+                <li class="list-group-item">Date of birth: @Submitted.DoB.ToShortDateString()</li>
+                <li class="list-group-item">Fav color: @Submitted.FavColor</li>
+                <li class="list-group-item">@(Submitted.Married ? "Married" : "Single")</li>
+            </ul>
+        </div>
+    }
+</div>
+
+
 
 @code {
+    public Person Model { get; set; } = new Person();
+    public bool showResult { get; set; } = false;
 
+    public void ShowResult()
+    {
+        showResult = true;
+    }
 }
