@@ -94,12 +94,12 @@
                 Result
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Name: @Submitted.Name</li>
-                <li class="list-group-item">Email: @Submitted.Email</li>
-                <li class="list-group-item">Age: @Submitted.Age</li>
-                <li class="list-group-item">Date of birth: @Submitted.DoB.ToShortDateString()</li>
-                <li class="list-group-item">Fav color: @Submitted.FavColor</li>
-                <li class="list-group-item">@(Submitted.Married ? "Married" : "Single")</li>
+                <li class="list-group-item">Name: @Model.Name</li>
+                <li class="list-group-item">Email: @Model.Email</li>
+                <li class="list-group-item">Age: @Model.Age</li>
+                <li class="list-group-item">Date of birth: @Model.DoB.ToShortDateString()</li>
+                <li class="list-group-item">Fav color: @Model.FavColor</li>
+                <li class="list-group-item">@(Model.Married ? "Married" : "Single")</li>
             </ul>
         </div>
     }
