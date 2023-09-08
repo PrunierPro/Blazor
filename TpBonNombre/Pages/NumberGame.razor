@@ -4,7 +4,6 @@
     if (!_win && _numLives > 0)
     {
         <h3>Magic Number</h3>
-        <p name="debug">Number is @_number</p>
         <label for="number">Guess the magic number between 0 and 20</label>
         <input type="number" @bind="_currentGuess" @bind:event="oninput" @onchange="GuessControl" id="number" name="number" />
         <button class="btn btn-primary" @onclick="Test">Test</button>
